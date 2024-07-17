@@ -12,21 +12,20 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-plugins {
-    id "maven-publish"
-    id "com.google.cloud.artifactregistry.gradle-plugin" version "2.1.5"
-    id "com.android.application"
-}
+apply plugin: 'com.android.application'
+apply plugin: 'org.jetbrains.kotlin.android'
+apply plugin: 'com.google.cloud.artifactregistry.gradle-plugin'
 
 ext {
     androidxVersion = "1.0.0"
 }
 
 task wrapper(type: Wrapper) {
-     gradleVersion = '7.4'
+     gradleVersion = '8.4'
 }
 
 android {
+    namespace 'com.google.mapsplatform.transportation.delivery.sample.driver'
     compileSdkVersion 33
 
     defaultConfig {
@@ -48,6 +47,10 @@ android {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
     }
+    kotlinOptions {
+        jvmTarget = "1.8"
+    }
+
     sourceSets {
         main {
             manifest.srcFile 'src/main/AndroidManifest.xml'
@@ -85,7 +88,7 @@ repositories {
 }
 
 dependencies {
-    implementation 'com.google.android.libraries.mapsplatform.transportation:transportation-driver:4.+'
+    implementation 'com.google.android.libraries.mapsplatform.transportation:transportation-driver:5.+'
 
     // And dependencies.
     implementation "androidx.appcompat:appcompat:${androidxVersion}"
